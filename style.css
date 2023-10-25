@@ -1,0 +1,45 @@
+body{
+    background-color: lightblue;
+}
+
+header{
+    text-align: center;
+    color: darkgray;
+    text-shadow: 2px 2px #ffffff;
+}
+#box_cash{
+    color:green;
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 15%;
+    outline: auto;
+}
+#box_upgrades{
+    color:red;
+    text-align: center;
+    outline:auto;
+    padding: left;
+    width: 15%;
+}
+#box_automate{
+    color:blue;
+    text-align: center;
+    outline:auto;
+    padding: right;
+    width: 15%;
+}
+
+#box_shop{
+    display: flex;
+    justify-content: space-between;
+}
+#box_work{
+    background-color: lightgoldenrodyellow;
+    text-align: center;
+    width: fit-content;
+    margin-inline: 49%;
+    
+}
+#box_work button{
+    background: transparent;
+}

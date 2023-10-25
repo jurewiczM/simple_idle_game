@@ -2,10 +2,13 @@
 <html>
     <head>
         <title>Idle Clicker</title>
+        <link rel="stylesheet" href="style.css">
         <script>
             var points = 0;
             var upgrade = 1;
             var automate = 0;
+            var level = 0;
+            var foundation = 1;
             const intervalID = setInterval(automateWork, 1000);
             function createCookie(name){
                 document.cookie = "name = player; points = 0; path = /";
@@ -34,6 +37,8 @@
                 automate = automate+1;
                 points = points - 50;
                 document.getElementById("automate").innerHTML = "Automation amount: " + automate; 
+            }else{
+                document.getElementById("automate").innerHTML += "Not enough points for this upgrade"
             }
         }
            
@@ -45,6 +50,12 @@
         }
         }
 
+        function addNewLayer(){
+            if(points>=200){
+                document.getElementById("box_layers").innerHTML += "<img src='layer_alt'> "
+            }
+        }
+
         
             
 
@@ -52,29 +63,39 @@
         </script>
     </head>
     <body>
+        <header> 
+            <h1>Simple Idle Game</h1>
+            
+        </header>
         <script>
             
         </script>
-        <div>
-            <div id="cash">
-                Cash: 0
+        <div id="box_main">
+            <div id="box_cash">
+                <div id="cash">
+                    Cash: 0
+                </div>
             </div>
-
-        <div>
-            <div id="upgrade">
-                Upgrade: 1 
+            <div id="box_shop">
+                <div id="box_upgrades">
+                        <p id="upgrade">Upgrade: 1 </p>
+                        <button onclick=upgradeClick()>Upgrade (10)</button>
+                </div>
+                <div id="box_layers">
+                    <button onclick="addNewLayer()">
+                        Add new layer of complexity (200)
+                    </button>
+                </div>
+                <div id="box_automate">
+                        <p id="automate">Automation: 0 </p>
+                        <button onclick="automateUpgrade()">Automate (50)</button>
+                </div>
             </div>
-        </div>
-        <div>
-            <div id="automate">
-                Automation: 0 
+            <div id="box_work">
+                <button onclick=addCash()>Work</button>
+                
+                
             </div>
-        </div>
-
-        <div>
-            <button onclick=addCash()>Work</button>
-            <button onclick=upgradeClick()>Upgrade (10)</button>
-            <button onclick="automateUpgrade()">Automate (50)</button>
         </div>
     </body>
 </html>
