@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Idle Clicker</title>
+        <script>
+            var points = 0;
+            var upgrade = 1;
+            var automate = 0;
+            const intervalID = setInterval(automateWork, 1000);
+            function createCookie(name){
+                document.cookie = "name = player; points = 0; path = /";
+            }
+
+            document.getElementById("cash").innerHTML = "Cash: " + points;
+            
+
+            function addCash(){
+                points= points + upgrade;
+                document.getElementById("cash").innerHTML = "Cash: " + points ;
+            }
+
+            function upgradeClick(){
+                if(points>=10){
+                upgrade = upgrade+1;
+                points = points - 10;
+                document.getElementById("upgrade").innerHTML = "Upgrade: " + upgrade;
+                document.getElementById("cash").innerHTML = "Cash: " + points ;
+            }else{
+                document.getElementById("upgrade").innerHTML += "Not enough points for this upgrade"
+            }
+        }
+        function automateUpgrade(){
+             if(points>=50){
+                automate = automate+1;
+                points = points - 50;
+                document.getElementById("automate").innerHTML = "Automation amount: " + automate; 
+            }
+        }
+           
+        
+        function automateWork(){
+            if(automate>0){
+            points = points + 1*automate;
+            document.getElementById("cash").innerHTML = "Cash: " + points ;
+        }
+        }
+
+        
+            
+
+            
+        </script>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+        <div>
+            <div id="cash">
+                Cash: 0
+            </div>
+
+        <div>
+            <div id="upgrade">
+                Upgrade: 1 
+            </div>
+        </div>
+        <div>
+            <div id="automate">
+                Automation: 0 
+            </div>
+        </div>
+
+        <div>
+            <button onclick=addCash()>Work</button>
+            <button onclick=upgradeClick()>Upgrade (10)</button>
+            <button onclick="automateUpgrade()">Automate (50)</button>
+        </div>
+    </body>
+</html>
