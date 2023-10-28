@@ -7,35 +7,37 @@
             var points = 0;
             var upgrade = 1;
             var automate = 0;
-            var level = 0;
-            var foundation = 1;
+            var foundationLevel = 1;
+            var id_name = ""
+            var newLayerCost = 1;
             const intervalID = setInterval(automateWork, 1000);
             function createCookie(name){
                 document.cookie = "name = player; points = 0; path = /";
             }
-
-            document.getElementById("cash").innerHTML = "Cash: " + points;
+           // document.getElementById("cash").innerHTML = "Cash: " + points;
             
-
+            function pointsDeduction(deduction){
+                points = points -deduction;
+            }
             function addCash(){
                 points= points + upgrade;
                 document.getElementById("cash").innerHTML = "Cash: " + points ;
             }
 
-            function upgradeClick(){
-                if(points>=10){
-                upgrade = upgrade+1;
-                points = points - 10;
+            function clickUpgrade(additionalUpgrade,cost){
+                if(points>=cost){
+                upgrade = upgrade+additionalUpgrade;
+                pointsDeduction(cost)
                 document.getElementById("upgrade").innerHTML = "Upgrade: " + upgrade;
                 document.getElementById("cash").innerHTML = "Cash: " + points ;
             }else{
                 document.getElementById("upgrade").innerHTML += "Not enough points for this upgrade"
             }
         }//xd
-        function automateUpgrade(){
-             if(points>=50){
-                automate = automate+1;
-                points = points - 50;
+        function automateUpgrade(additionalUpgrade,cost){
+             if(points>=cost){
+                automate = automate+additionalUpgrade;
+                pointsDeduction(cost)
                 document.getElementById("automate").innerHTML = "Automation amount: " + automate; 
             }else{
                 document.getElementById("automate").innerHTML += "Not enough points for this upgrade"
@@ -51,10 +53,27 @@
         }
 
         function addNewLayer(){
-            if(points>=200){
-                document.getElementById("box_layers").innerHTML += "<img src='layer_alt'> "
+            if(points>=newLayerCost){
+                pointsDeduction(newLayerCost);
+                document.getElementById("box_layers").innerHTML += "<img src='layer_alt' alt='layer'> "
+                foundationLevel = foundationLevel+1;
+                id_name = "box_upgrade_button_" + foundationLevel;
+                document.getElementById(id_name).style.display = 'block';
+                id_name = "box_automate_button_" + foundationLevel;
+                document.getElementById(id_name).style.display = 'block';
+                newLayerCost = newLayerCost*2;
+                document.getElementById("box_layers_button").innerHTML = " Add new layer of complexity (" + newLayerCost +")" ;
+                
+            }else{
+                document.getElementById("box_layers_button").innerHTML += "Nie stac cie lol";
+                setTimeout(function(){
+                    document.getElementById("box_layers_button").innerHTML = " Add new layer of complexity (200)";
+                },1200)
+                
             }
         }
+
+
 
         
             
@@ -79,16 +98,25 @@
             <div id="box_shop">
                 <div id="box_upgrades">
                         <p id="upgrade">Upgrade: 1 </p>
-                        <button onclick=upgradeClick()>Upgrade (10)</button>
+                        <button onclick=upgradeClick(1,10) id="box_upgrade_button_1" >Upgrade <p>10</p></button>
+                        <button onclick="upgradeClick(5,25)" id="box_upgrade_button_2"  style="display: none;">Upgrade 1<p>25</p></button>
+                        <button onclick="upgradeClick(20,125)" id="box_upgrade_button_3"  style="display: none;">Upgrade 2<p>125</p></button>
+                        <button onclick="upgradeClick(50, 250)" id="box_upgrade_button_4"  style="display: none;">Upgrade 3<p>250</p></button>
+                        <button onclick="upgradeClick(100,550)" id="box_upgrade_button_5"  style="display: none;">Upgrade 4<p>550</p></button>
+                        <button onclick="upgradeClick(2137,2137)" id="box_upgrade_button_6"  style="display: none;">Upgrade 5<p>2137</p></button>
                 </div>
                 <div id="box_layers">
-                    <button onclick="addNewLayer()">
+                    <button onclick="addNewLayer()" id="box_layers_button">
                         Add new layer of complexity (200)
                     </button>
                 </div>
                 <div id="box_automate">
                         <p id="automate">Automation: 0 </p>
-                        <button onclick="automateUpgrade()">Automate (50)</button>
+                        <button onclick="automateUpgrade(1,50)"" id="box_automate_button_1">Automate 1<p>50</p></button>
+                        <button onclick="automateUpgrade(5,50)"" id="box_automate_button_2" style="display: none;">Automate 2(50)<p>100</p></button>
+                        <button onclick="automateUpgrade(10,50)"" id="box_automate_button_3" style="display: none;">Automate 3(50)<p>250</p></button>
+                        <button onclick="automateUpgrade(50,50)"" id="box_automate_button_4" style="display: none;">Automate 4(50) <p>500</p></button>
+                        <button onclick="automateUpgrade(2137,50)"" id="box_automate_button_5" style="display: none;">Automate 5(50)<p>2137</p></button>
                 </div>
             </div>
             <div id="box_work">
